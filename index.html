@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kenjii's Flashcard App</title>
+    <h1>Kenjii's Flashcard App</h1>
+        <p>Welcome to my flashcard app! Here you can create and study flashcards for any subject you want.</p>
+        
+        <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            transition: background-color 0.3s ease;
+        }
+
+        .dark-mode {
+            background-color: #181818;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .controls {
+            margin: 20px 0;
+        }
+
+        .input-fields {
+            margin: 20px 0;
+        }
+
+        .input-fields button {
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .input-fields button:hover {
+            background-color: #0097a7;
+        }
+
+        .controls button {
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .controls button:hover {
+            background-color: #0097a7;
+        }
+
+        /* Flashcard container */
+        .flashcard {
+            background-color: #444;
+            width: 600px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: transform 0.6s ease, background-color 0.6s ease;
+            position: relative;
+            margin: 20px auto;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        /* The front and back sides */
+        .flashcard-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Style for the back side */
+        .flashcard-back {
+            transform: rotateY(180deg);
+        }
+
+        /* Rotate the flashcard when flipped */
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .input-fields {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-fields input {
+            margin: 5px;
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: #0097a7;
+        }
+
+        .dark-mode .flashcard {
+            background-color: #333;
+        }
+
+        .dark-mode input {
+            background-color: #555;
+            color: white;
+            border: 1px solid #777;
+        }
+
+        .dark-mode .controls button {
+            background-color: #00796b;
+        }
+
+        .dark-mode .theme-toggle {
+            background-color: #00796b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+
+        <div class="flashcard" onclick="flipFlashcard()">
+            <div class="flashcard-content flashcard-front">Question 1</div>
+            <div class="flashcard-content flashcard-back">Answer 1</div>
+        </div>
+
+        <div class="controls">
+            <button id="prevButton" onclick="showPreviousFlashcard()">Previous</button>
+            <button id="nextButton" onclick="showNextFlashcard()">Next</button>
+        </div>
+
+        <div class="input-fields">
+            <input type="text" id="questionInput" placeholder="Enter question">
+            <input type="text" id="answerInput" placeholder="Enter answer">
+            <button onclick="addFlashcard()">Add Flashcard</button>
+        </div>
+    </div>
+
+    <script>
+        let flashcards = [];
+        let currentCardIndex = 0;
+
+        // Function to add a flashcard
+        function addFlashcard() {
+            const question = document.getElementById("questionInput").value;
+            const answer = document.getElementById("answerInput").value;
+
+            if (question && answer) {
+                const flashcard = { question, answer };
+                flashcards.push(flashcard);
+                displayFlashcard(flashcard);
+                currentCardIndex = flashcards.length - 1;
+                document.getElementById("questionInput").value = '';
+                document.getElementById("answerInput").value = '';
+            }
+        }
+
+        // Function to display a flashcard
+        function displayFlashcard(flashcard) {
+            const flashcardContainer = document.querySelector(".flashcard");
+            const flashcardFront = flashcardContainer.querySelector(".flashcard-front");
+            const flashcardBack = flashcardContainer.querySelector(".flashcard-back");
+
+            flashcardFront.textContent = flashcard.question;
+            flashcardBack.textContent = flashcard.answer;
+        }
+
+        // Function to show the next flashcard
+        function showNextFlashcard() {
+            if (flashcards.length === 0) return;
+
+            currentCardIndex = (currentCardIndex + 1) % flashcards.length;
+            displayFlashcard(flashcards[currentCardIndex]);
+
+            const flashcardContainer = document.querySelector(".flashcard");
+            if (flashcardContainer.classList.contains("flipped")) {
+                flashcardContainer.classList.remove("flipped");
+            }
+
+            flashcardContainer.style.transition = 'transform 0.6s ease';
+            flashcardContainer.style.transform = 'rotateY(360deg)';
+            setTimeout(() => {
+                flashcardContainer.style.transform = '';
+            }, 600);
+        }
+
+        // Function to show the previous flashcard
+        function showPreviousFlashcard() {
+            if (flashcards.length === 0) return;
+
+            currentCardIndex = (currentCardIndex - 1 + flashcards.length) % flashcards.length;
+            displayFlashcard(flashcards[currentCardIndex]);
+
+            const flashcardContainer = document.querySelector(".flashcard");
+            if (flashcardContainer.classList.contains("flipped")) {
+                flashcardContainer.classList.remove("flipped");
+            }
+
+            flashcardContainer.style.transition = 'transform 0.6s ease';
+            flashcardContainer.style.transform = 'rotateY(-360deg)';
+            setTimeout(() => {
+                flashcardContainer.style.transform = '';
+            }, 600);
+        }
+
+        // Function to flip the flashcard
+        function flipFlashcard() {
+            const flashcard = document.querySelector(".flashcard");
+            flashcard.classList.toggle("flipped");
+        }
+
+        // Function to toggle the theme
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+        }
+    </script>
+</body>
+</html>

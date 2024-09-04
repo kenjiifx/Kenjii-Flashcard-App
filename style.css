@@ -1,0 +1,168 @@
+/* Set the font family, display, flex-direction, align-items, justify-content, height, margin, background-color, and transition for the body */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s ease;
+}
+
+/* Set the background-color and color for the dark-mode class */
+.dark-mode {
+    background-color: #181818;
+    color: white;
+}
+
+/* Set the display, flex-direction, align-items, and width for the container class */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Set the margin for the controls class */
+.controls {
+    margin: 20px 0;
+}
+
+/* Set the margin for the input-fields class */
+.input-fields {
+    margin: 20px 0;
+}
+
+/* Set the background-color, color, border, padding, margin, cursor, border-radius, and transition for the input-fields button */
+.input-fields button {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Set the background-color for the input-fields button when hovered */
+.input-fields button:hover {
+    background-color: #0097a7;
+}
+
+/* Set the background-color, color, border, padding, margin, cursor, border-radius, and transition for the controls button */
+.controls button {
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Set the background-color for the controls button when hovered */
+.controls button:hover {
+    background-color: #0097a7;
+}
+
+/* Set the background-color, width, height, display, align-items, justify-content, color, font-size, border-radius, box-shadow, cursor, transition, position, margin, transform-style, and perspective for the flashcard class */
+.flashcard {
+    background-color: #444;
+    width: 600px;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.6s ease, background-color 0.6s ease;
+    position: relative;
+    margin: 20px auto;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Set the position, width, height, backface-visibility, display, align-items, and justify-content for the flashcard-content class */
+.flashcard-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Set the transform for the flashcard-back class */
+.flashcard-back {
+    transform: rotateY(180deg);
+}
+
+/* Set the transform for the flipped flashcard */
+.flashcard.flipped {
+    transform: rotateY(180deg);
+}
+
+/* Set the display, flex-direction, align-items, and width for the input-fields class */
+.input-fields {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Set the margin, padding, width, border, and border-radius for the input-fields input */
+.input-fields input {
+    margin: 5px;
+    padding: 10px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Set the position, top, right, background-color, color, border, padding, cursor, border-radius, and transition for the theme-toggle class */
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #00bcd4;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+/* Set the background-color for the theme-toggle when hovered */
+.theme-toggle:hover {
+    background-color: #0097a7;
+}
+
+/* Set the background-color for the flashcard in dark-mode */
+.dark-mode .flashcard {
+    background-color: #333;
+}
+
+/* Set the background-color, color, and border for the input in dark-mode */
+.dark-mode input {
+    background-color: #555;
+    color: white;
+    border: 1px solid #777;
+}
+
+/* Set the background-color for the controls button in dark-mode */
+.dark-mode .controls button {
+    background-color: #00796b;
+}
+
+/* Set the background-color for the theme-toggle in dark-mode */
+.dark-mode .theme-toggle {
+    background-color: #00796b;
+}
